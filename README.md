@@ -1,4 +1,4 @@
-# 🚀 WEB BASED PROCESS FETCHING PC PROCCESSES
+# 🚀 WEB BASED PROCESS FETCHING PC PROCCESSES (•̀ᴗ•́)
 
 ## 🌟 SCRATCH WEB BASED BUILD BY NYANNNCATT
 
@@ -21,26 +21,9 @@ This project was developed to bridge the gap between web applications and deskto
 -  **Additional API Integrations**: Extend support to multiple external APIs for more diverse data sources.
 
 ## 🛠️ Installation
-1. 📥 Clone the repository:
-   ```sh
-  (pangitaan pag alternative paagi)
-   ```
-2. 📂 Navigate to the project directory:
-   ```sh
- (PENDING)
-   ```
-3. ⚙️ Install dependencies:
-   ```sh
- (pangitaan pag alternative paagi)
-   ```
-````
-4. ▶️ Start the development server:
-   ```sh
- (pangitaan pag alternative paagi)
-   ```
- ```
+   -WALA PA KAY GUBOT PA AKONG LIBRARIES AND DEPENDENCIES (•̀ᴗ•́)
 
----
 
-🌟 _Star this repository if you found it useful!_ ⭐
+
+🌟 _Star this repository if you found it useful!_ ⭐ (•̀ᴗ•́)
 
