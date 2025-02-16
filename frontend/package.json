@@ -1,14 +1,20 @@
 {
-  "name": "process-manager",
+  "name": "IAS-WEB-BASED-PROCESS-LINKED-DETECTION",
   "version": "1.0.0",
   "dependencies": {
     "axios": "^0.27.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-scripts": "5.0.0"
+    "react-scripts": "5.0.0",
+    "web-vitals": "^4.2.4",
+    "bootstrap": "^5.3.3",
+    "react-bootstrap": "^2.10.9"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
