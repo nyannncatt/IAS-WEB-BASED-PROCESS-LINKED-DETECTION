@@ -1,4 +1,4 @@
-<h1>      <img src="https://user-images.githubusercontent.com/74038190/226127923-0e8b7792-7b3c-462b-951b-63c96ba1a5af.gif" width="205"></h1>
+<h1>      <img src="https://user-images.githubusercontent.com/74038190/226127923-0e8b7792-7b3c-462b-951b-63c96ba1a5af.gif" width="150"></h1>
 # 🚀 USING REACT AND API FOR FETCHING PC PROGRAMS
 ## 🌟 SCRATCH WEB BASED BUILD BY NYANNNCATT
 
