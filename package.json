@@ -1,5 +1,6 @@
 {
-  "name": "process-manager",
+  "name": "IAS-WEB-BASED-PROCESS-LINKED-DETECTION",
+  "homepage": "https://github.io/nyannncatt/IAS-WEB-BASED-PROCESS-LINKED-DETECTION",
   "version": "1.0.0",
   "dependencies": {
     "axios": "^0.27.2",
@@ -8,6 +9,10 @@
     "react-scripts": "5.0.0"
   },
   "scripts": {
+"build": "react-scripts build", 
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+
     "start": "react-scripts start"
   },
   "browserslist": {
@@ -21,5 +26,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
