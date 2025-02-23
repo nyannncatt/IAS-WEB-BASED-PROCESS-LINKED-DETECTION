@@ -60,11 +60,6 @@ export default function App() {
           />
         </div>
 
-        {/* Refresh Button */}
-        <button className="btn btn-info mb-3" onClick={fetchProcesses}>
-          Refresh List
-        </button>
-
         {/* Process List */}
         <div className="card shadow-lg">
           <div className="card-header bg-primary text-white">

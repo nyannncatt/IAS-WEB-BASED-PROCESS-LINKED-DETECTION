@@ -8,7 +8,7 @@ CORS(app)  # Enable CORS for all routes
 
 @app.route('/api/processes', methods=['GET'])
 def get_processes():
-    processes = [proc.info['name'] for proc in psutil.process_iter(attrs=['name'])]
+    processes = list(set(proc.info['name'] for proc in psutil.process_iter(attrs=['name']) if proc.info['name']))
     return jsonify(processes)
 
 @app.route('/api/kill', methods=['POST'])
