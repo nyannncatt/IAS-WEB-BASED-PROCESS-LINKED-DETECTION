@@ -63,7 +63,7 @@ export default function App() {
             {processes
               .filter((p) => p.toLowerCase().includes(filter.toLowerCase()))
               .map((process) => (
-                <li
+                <liaa
                   key={process}
                   className="list-group-item d-flex justify-content-between align-items-center"
                 >
@@ -74,7 +74,7 @@ export default function App() {
                   >
                     Terminate
                   </button>
-                </li>
+                </liaa>
               ))}
           </ul>
         </div>
