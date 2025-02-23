@@ -41,7 +41,10 @@ export default function App() {
       <div className="content container mt-5">
         <h1 className="text-center text-primary mb-4">Process Manager</h1>
 
-       
+          {/* Refresh Button */}
+          <button className="btn btn-info mb-3" onClick={fetchProcesses}>
+          Refresh List
+        </button>
 
         {/* Search Input */}
         <div className="mb-3">
