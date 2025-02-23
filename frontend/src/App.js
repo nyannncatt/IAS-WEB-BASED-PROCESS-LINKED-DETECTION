@@ -41,13 +41,7 @@ export default function App() {
       <div className="content container mt-5">
         <h1 className="text-center text-primary mb-4">Process Manager</h1>
 
-        {/* Theme Toggle Button */}
-        <button 
-          className="btn btn-secondary mb-3" 
-          onClick={() => setDarkMode(!darkMode)}
-        >
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </button>
+       
 
         {/* Search Input */}
         <div className="mb-3">
