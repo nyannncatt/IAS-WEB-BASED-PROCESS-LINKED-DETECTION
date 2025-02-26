@@ -23,7 +23,17 @@ This project was developed to bridge the gap between web applications and deskto
 -  **Additional API Integrations**: Extend support to multiple external APIs for more diverse data sources.
 
 ## 🛠️ Installation
-   -WALA PA KAY GUBOT PA AKONG LIBRARIES AND DEPENDENCIES (•̀ᴗ•́)
+   backend:
+   python
+   flashk
+   psutil
+   cors
+
+   frontend:
+   npm install
+   react-icons
+   npm install bootstrap
+   ...
 
 
 
