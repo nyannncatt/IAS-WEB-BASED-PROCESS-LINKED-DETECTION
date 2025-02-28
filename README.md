@@ -33,6 +33,7 @@ This project was developed to bridge the gap between web applications and deskto
    npm install
    react-icons
    npm install bootstrap
+   framer-motion
    ...
 
 
