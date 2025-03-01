@@ -30,7 +30,6 @@ This project was developed to bridge the gap between web applications and deskto
    cors
 
    frontend:
-   npm install
    react-icons
    npm install bootstrap
    framer-motion
