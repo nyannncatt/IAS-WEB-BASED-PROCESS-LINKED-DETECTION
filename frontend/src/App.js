@@ -1,35 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { supabase } from "./supabaseClient"; // Import Supabase client
 
+// Function to generate random CAPTCHA string
+const generateCaptcha = () => {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let captcha = "";
+  for (let i = 0; i < 6; i++) {
+    captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return captcha;
+};
+
 export default function App() {
   const [processes, setProcesses] = useState([]);
   const [filter, setFilter] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-  const [email, setEmail] = useState(""); // Email for login
-  const [password, setPassword] = useState(""); // Password input
-  const [otp, setOtp] = useState(""); // OTP input
-  const [loggedIn, setLoggedIn] = useState(false); // Track login state
-  const [loading, setLoading] = useState(false); // Track loading state
-  const [loginMethod, setLoginMethod] = useState("email"); // Track the login method
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [otp, setOtp] = useState(""); 
+  const [loggedIn, setLoggedIn] = useState(false); 
+  const [loading, setLoading] = useState(false); 
+  const [loginMethod, setLoginMethod] = useState("email"); 
+  const [captchaText, setCaptchaText] = useState(generateCaptcha()); 
+  const [captchaInput, setCaptchaInput] = useState(""); 
+  const [captchaValid, setCaptchaValid] = useState(false); 
 
-  // Listen for auth state change
+  const canvasRef = useRef(null); 
+
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (session) {
-          setLoggedIn(true); // User is logged in
+          setLoggedIn(true); 
           console.log("Logged in:", session.user);
         } else {
-          setLoggedIn(false); // User logged out
+          setLoggedIn(false); 
         }
       }
     );
 
     return () => {
-      authListener?.unsubscribe(); // Clean up listener on component unmount
+      authListener?.unsubscribe();
     };
   }, []);
 
@@ -57,8 +71,14 @@ export default function App() {
     }
   };
 
-  // Send OTP to the user's email
+  // Send OTP to the user's email after validating CAPTCHA
   const sendOtp = async () => {
+    // Check if the CAPTCHA is valid before proceeding
+    if (captchaInput !== captchaText) {
+      alert("Invalid CAPTCHA. Please try again.");
+      return;
+    }
+
     setLoading(true);
     try {
       const { error } = await supabase.auth.signInWithOtp({
@@ -77,6 +97,11 @@ export default function App() {
   // Login function with email and password
   const loginWithPassword = async () => {
     setLoading(true);
+    if (captchaInput !== captchaText) {
+      alert("Invalid CAPTCHA. Please try again.");
+      setLoading(false);
+      return;
+    }
     try {
       const { user, error } = await supabase.auth.signInWithPassword({
         email,
@@ -98,22 +123,43 @@ export default function App() {
     try {
       await supabase.auth.signOut();
       setLoggedIn(false);
-      setEmail(""); // Clear the email and password after logging out
-      setPassword(""); // Clear the password
+      setEmail(""); 
+      setPassword(""); 
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
 
-  // Render login screen if the user is not logged in
+  // Draw CAPTCHA on canvas
+  const drawCaptcha = (captcha) => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
+    context.clearRect(0, 0, canvas.width, canvas.height); 
+    context.font = "30px Arial";
+    context.fillStyle = "black";
+    context.fillText(captcha, 50, 50); 
+  };
+
+  // Trigger CAPTCHA regeneration when user clicks "Refresh"
+  const refreshCaptcha = () => {
+    const newCaptcha = generateCaptcha();
+    setCaptchaText(newCaptcha);
+    setCaptchaInput("");
+    drawCaptcha(newCaptcha); 
+  };
+
+  useEffect(() => {
+    drawCaptcha(captchaText); 
+  }, [captchaText]);
+
   if (!loggedIn) {
     return (
       <div className={`app-container App ${darkMode ? "dark-mode" : "light-mode"}`}>
         <div className="content container mt-5">
           <h1 className="text-center text-primary mb-4">Login</h1>
 
-          {/* Login Method Selection */}
-          <div className="mb-3 text-center">
+          <div className="d-flex justify-content-center mb-3">
             <button
               className={`btn ${loginMethod === "email" ? "btn-info" : "btn-outline-info"} mx-2`}
               onClick={() => setLoginMethod("email")}
@@ -128,7 +174,6 @@ export default function App() {
             </button>
           </div>
 
-          {/* Email Input */}
           <div className="mb-3">
             <input
               type="email"
@@ -139,7 +184,6 @@ export default function App() {
             />
           </div>
 
-          {/* Password or OTP */}
           {loginMethod === "email" && (
             <div className="mb-3">
               <input
@@ -151,6 +195,7 @@ export default function App() {
               />
             </div>
           )}
+
           {loginMethod === "otp" && (
             <div className="mb-3">
               <button
@@ -164,7 +209,22 @@ export default function App() {
             </div>
           )}
 
-          {/* Login Button */}
+          <div className="mb-3">
+            <canvas ref={canvasRef} width="200" height="50" className="border"></canvas>
+            <div className="text-center mt-2">
+              <button className="btn btn-outline-primary" onClick={refreshCaptcha}>
+                Refresh CAPTCHA
+              </button>
+            </div>
+            <input
+              type="text"
+              className="form-control mt-3"
+              placeholder="Enter CAPTCHA"
+              value={captchaInput}
+              onChange={(e) => setCaptchaInput(e.target.value)}
+            />
+          </div>
+
           <div className="text-center">
             {loginMethod === "email" && (
               <button
@@ -175,39 +235,24 @@ export default function App() {
                 {loading ? "Logging in..." : "Login"}
               </button>
             )}
-           
-           
           </div>
-
-   
         </div>
       </div>
     );
   }
 
-  // If the user is logged in, show the process manager
   return (
-    <div
-      className={`app-container App ${darkMode ? "dark-mode" : "light-mode"}`}
-      style={{
-        backgroundImage: "url('/background.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-      }}
-    >
+    <div className={`app-container App ${darkMode ? "dark-mode" : "light-mode"}`}>
       <div className="overlay"></div>
       <div className="content container mt-5">
         <h1 className="text-center text-primary mb-4">Process Manager</h1>
 
-        {/* Logout Button */}
         <div className="text-end mb-4">
           <button className="btn btn-danger" onClick={logout}>
             Logout
           </button>
         </div>
 
-        {/* Search Input */}
         <div className="mb-3">
           <input
             type="text"
@@ -218,7 +263,6 @@ export default function App() {
           />
         </div>
 
-        {/* Process List */}
         <div className="card shadow-lg">
           <div className="card-header bg-primary text-white">
             <h4 className="mb-0">Running Processes</h4>
@@ -227,10 +271,7 @@ export default function App() {
             {processes
               .filter((p) => p.toLowerCase().includes(filter.toLowerCase()))
               .map((process) => (
-                <li
-                  key={process}
-                  className="list-group-item d-flex justify-content-between align-items-center"
-                >
+                <li key={process} className="list-group-item d-flex justify-content-between align-items-center">
                   <span>{process}</span>
                   <button
                     className="btn btn-danger btn-sm"

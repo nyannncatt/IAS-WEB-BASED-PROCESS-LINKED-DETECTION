@@ -1,10 +1,21 @@
+/* General App Styling */
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  margin-bottom: 20px;
+  transition: transform 1s ease-in-out;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,32 +24,128 @@
   }
 }
 
-.dark-mode {
-  background-color: #121212;
-  color: white;
-}
-
-.light-mode {
-  background-color: white;
-  color: black;
-}
-
-
+/* Header Section Styling */
 .App-header {
-  background-color: #282c34;
+  background: linear-gradient(135deg, #283048, #859398);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(16px + 2vmin);
   color: white;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+/* Header hover effect */
+.App-header:hover {
+  background: linear-gradient(135deg, #283048, #2f3a47);
+  transform: translateY(-5px);
+}
+
+/* Link Styling */
 .App-link {
   color: #61dafb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2em;
+  transition: color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
 }
 
+.App-link:hover {
+  color: #21a1f1;
+  transform: scale(1.1);
+  text-decoration: underline;
+}
+
+/* Logo Animation */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Gradient Background (Optional) */
+.App-gradient-background {
+  background: linear-gradient(135deg, #61dafb, #283048);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.9;
+  border-radius: 12px;
+}
+
+/* Button Styling */
+.App-button {
+  background-color: #61dafb;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.2em;
+  padding: 15px 30px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.App-button:hover {
+  background-color: #21a1f1;
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+/* Card Component Styling */
+.App-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 15px;
+  width: 280px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.App-card:hover {
+  transform: translateY(-5px); /* Card lifts on hover */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Darker shadow for depth */
+}
+
+/* Card Title Styling */
+.App-card-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Card Description Styling */
+.App-card-description {
+  font-size: 1em;
+  color: #666;
+  flex-grow: 1;
+}
+
+/* Card Footer Styling */
+.App-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Keyframe for Logo Spin */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
